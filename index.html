@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SM診断ツール企画 | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1a1a26;
+      --accent: #9b5de5;
+      --accent2: #f72585;
+      --accent3: #4cc9f0;
+      --text: #e8e8f0;
+      --text-muted: #8888aa;
+      --border: #2a2a3a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .logo { font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    nav ul a:hover { color: var(--text); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(155,93,229,0.15) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 70% 60%, rgba(247,37,133,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 span {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-badges {
+      display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .badge {
+      padding: 0.4rem 0.9rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .badge.primary {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(155,93,229,0.08);
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+    section:not(:last-child) { border-bottom: 1px solid var(--border); }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      line-height: 1.3;
+    }
+    h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.6rem; }
+
+    /* ─── OVERVIEW GRID ─── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--accent); }
+    .stat-card .num {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-card .label { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+    /* ─── CARDS ─── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      margin-bottom: 1.2rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--accent); }
+    .card p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.8; }
+    .card ul { color: var(--text-muted); font-size: 0.92rem; padding-left: 1.2rem; }
+    .card ul li { margin-bottom: 0.4rem; line-height: 1.8; }
+
+    /* ─── TWO COL ─── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    @media(max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ─── PERSONA ─── */
+    .persona {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .persona::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .persona-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    .persona-tag.main { background: rgba(155,93,229,0.15); color: var(--accent); }
+    .persona-tag.sub { background: rgba(76,201,240,0.12); color: var(--accent3); }
+    .persona h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+    .persona .age { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem; }
+    .persona ul { list-style: none; padding: 0; }
+    .persona ul li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: flex; align-items: flex-start; gap: 0.6rem;
+    }
+    .persona ul li:last-child { border-bottom: none; }
+    .persona ul li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+    /* ─── AXIS ─── */
+    .axis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media(max-width: 540px) { .axis-grid { grid-template-columns: 1fr; } }
+    .axis-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+    }
+    .axis-card .axis-num {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--accent2);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .axis-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .axis-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+    .vs {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      margin: 0.4rem 0;
+      font-size: 0.82rem;
+    }
+    .vs span { padding: 0.2rem 0.6rem; border-radius: 4px; background: var(--surface); border: 1px solid var(--border); font-size: 0.78rem; }
+
+    /* ─── TIMELINE / RESEARCH ─── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+      border-radius: 2px;
+    }
+    .tl-item { position: relative; margin-bottom: 2rem; }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -2.45rem; top: 0.35rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+    }
+    .tl-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .tl-item p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ─── STRATEGY ─── */
+    .strategy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+    .strategy-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .strategy-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .strategy-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .strategy-card p { font-size: 0.83rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ─── QUOTE ─── */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ─── TECH ─── */
+    .tech-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .tech-chip {
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--surface);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">PORTFOLIO</div>
+  <ul>
+    <li><a href="#overview">概要</a></li>
+    <li><a href="#background">背景</a></li>
+    <li><a href="#persona">ターゲット</a></li>
+    <li><a href="#product">プロダクト</a></li>
+    <li><a href="#strategy">拡散戦略</a></li>
+    <li><a href="#tech">開発</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">LONG-TERM INTERNSHIP PROJECT</div>
+  <h1>SM診断ツール<br /><span>企画・開発・マーケティング</span></h1>
+  <p class="hero-sub">
+    マッチングアプリ「Luna」の新規ユーザー獲得と既存ユーザーのマッチング率向上を目的とした、
+    診断コンテンツのゼロイチ企画・開発プロジェクト
+  </p>
+  <div class="hero-badges">
+    <span class="badge primary">企画立案</span>
+    <span class="badge primary">マーケティング設計</span>
+    <span class="badge">ユーザーリサーチ</span>
+    <span class="badge">AI活用・ソロ開発</span>
+    <span class="badge">SNS拡散設計</span>
+  </div>
+  <div class="hero-cta">
+    <a href="https://smshindan.vercel.app" target="_blank" class="btn">実際のサービスを見る →</a>
+    <a href="#overview" class="btn btn-outline">詳細を読む</a>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="reveal">
+    <div class="section-label">Overview</div>
+    <h2>プロジェクト概要</h2>
+  </div>
+  <div class="overview-grid reveal">
+    <div class="stat-card">
+      <div class="num">+15%</div>
+      <div class="label">マッチング率向上の目標値</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">4軸</div>
+      <div class="label">診断の軸数（MBTI型設計）</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">16</div>
+      <div class="label">診断タイプ数</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">1人</div>
+      <div class="label">企画〜開発まで単独で担当</div>
+    </div>
+  </div>
+
+  <div class="card reveal">
+    <h3>プロジェクトの位置づけ</h3>
+    <p>
+      長期インターン中に自ら企画・提案し、承認を得てゼロから立ち上げた新規企画。
+      「表の目的（新規ユーザー獲得・SNS拡散）」と「裏の目的（退会者抑制・マッチング率向上）」
+      という二重の事業課題を一つのコンテンツで解決するよう設計した。
+    </p>
+  </div>
+</section>
+
+<!-- BACKGROUND -->
+<section id="background">
+  <div class="reveal">
+    <div class="section-label">Background</div>
+    <h2>なぜ診断ツールなのか</h2>
+  </div>
+
+  <div class="two-col reveal">
+    <div class="card">
+      <h3>表の目的：新規ユーザー獲得</h3>
+      <p>
+        診断系コンテンツは現在大流行中。ユーザーの
+        「自分を知りたい（探求欲求）」と「自分を表現したい（表現欲求）」
+        を同時に刺激し、SNSでの自然な拡散を生み出す。
+        「16Personalities」や「LoveType 16」（1ヶ月で200万UU）の成功事例から、
+        Z世代に『自分を分類して共有する』リテラシーが既に備わっていると判断した。
+      </p>
+    </div>
+    <div class="card">
+      <h3>裏の目的：退会者の抑制</h3>
+      <p>
+        退会者データを分析した結果、退会理由の約50%が「マッチングしない・合う相手がいない」。
+        退会者の共通点はプロフィールが曖昧・短文であることが判明した。
+        診断結果をそのままプロフィールに変換する機能により、
+        自己理解の浅さと伝達力の弱さを同時に補完し、マッチング率を向上させる設計とした。
+      </p>
+    </div>
+  </div>
+
+  <blockquote class="reveal">
+    特殊領域のマッチングアプリにとって、現ユーザーのマッチング率向上こそが売上への近道であり、
+    ブランド強化→ユーザー数増加という好循環につながると考えた。
+  </blockquote>
+
+  <div class="card reveal">
+    <h3>診断系が流行る構造的理由</h3>
+    <ul>
+      <li>帰属意識と自己理解：「同じタイプの仲間がいる」という安心感がZ世代の心を掴む</li>
+      <li>一言で人物像を説明できる手軽さ → 自己紹介コンテンツとして機能する</li>
+      <li>SNSアルゴリズムとの高い相性（シェア・保存・コメントが生まれやすい）</li>
+      <li>アイデンティティの付与 → ユーザーが診断結果に帰属意識を持ちやすい</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PERSONA -->
+<section id="persona">
+  <div class="reveal">
+    <div class="section-label">Target Persona</div>
+    <h2>ターゲット設定</h2>
+  </div>
+
+  <div class="two-col reveal">
+    <div class="persona">
+      <div class="persona-tag main">MAIN TARGET</div>
+      <h3>20歳女子大学生</h3>
+      <div class="age">ボリュームゾーン：18〜24歳</div>
+      <ul>
+        <li>SMに興味はあるが未経験・知識が浅い層</li>
+        <li>性行為経験は数回程度、「良さがわかっていない」状態</li>
+        <li>MBTI・心理テスト・占い・相性診断が大好き</li>
+        <li>「普通すぎるのは嫌」「自分だけの特別な何か」を求めている</li>
+        <li>自分を分類して安心したい気持ちがある</li>
+      </ul>
+    </div>
+    <div class="persona">
+      <div class="persona-tag sub">SUB TARGET（拡散層）</div>
+      <h3>同世代の大学生男性</h3>
+      <div class="age">ボリュームゾーン：20〜28歳（推定25〜35%）</div>
+      <ul>
+        <li>エロコンテンツには精通しているがSM分類は「SかMか」程度しか知らない</li>
+        <li>「こんな詳しい分類があるのか」という発見が拡散動機になる</li>
+        <li>二次拡散・認知拡大のキーとなる層</li>
+        <li>情報源：X・note・インスタ・検索</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top: 1.2rem;">
+    <h3>ユーザーの最大の痛点（解決したいこと）</h3>
+    <ul>
+      <li>「自分はどんなタイプなのか」という自己分類の欲求を満たす → <strong>特別感と分類の安心感</strong></li>
+      <li>SMに関する知識を、具体的な行為を想像させずにふんわり与える → <strong>ブランドイメージを壊さない設計</strong></li>
+      <li>「なんとなく興味ある」からLunaへの自然な導線を引く</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section id="product">
+  <div class="reveal">
+    <div class="section-label">Product Design</div>
+    <h2>プロダクト設計</h2>
+  </div>
+
+  <div class="card reveal">
+    <h3>なぜ4軸設計にしたのか</h3>
+    <p>
+      MBTIの成功により、Z世代には「複数軸で自分を定義する」というリテラシーが既に備わっている。
+      自己紹介レベルのSMタイプ分類として4軸がちょうどよく、
+      かつ現在流行しているMBTI形式が新規ユーザー獲得のマーケティング戦略にも適していると判断。
+      16タイプという豊富な種類がシェア意欲も高める。
+    </p>
+  </div>
+
+  <div class="axis-grid reveal">
+    <div class="axis-card">
+      <div class="axis-num">AXIS 01</div>
+      <h4>役割の傾向</h4>
+      <div class="vs">
+        <span>S（支配）</span>
+        <span style="color: var(--text-muted); font-size: 0.7rem;">vs</span>
+        <span>M（服従）</span>
+      </div>
+      <p>関係性における主体的な役割の傾向</p>
+    </div>
+    <div class="axis-card">
+      <div class="axis-num">AXIS 02</div>
+      <h4>刺激の種類</h4>
+      <div class="vs">
+        <span>精神的</span>
+        <span style="color: var(--text-muted); font-size: 0.7rem;">vs</span>
+        <span>肉体的</span>
+      </div>
+      <p>精神的な関係性と肉体的刺激のどちらをより好むか</p>
+    </div>
+    <div class="axis-card">
+      <div class="axis-num">AXIS 03</div>
+      <h4>関係性のスタイル</h4>
+      <div class="vs">
+        <span>日常的</span>
+        <span style="color: var(--text-muted); font-size: 0.7rem;">vs</span>
+        <span>非日常</span>
+      </div>
+      <p>日常的な関係性か、特別な時間として楽しみたいか</p>
+    </div>
+    <div class="axis-card">
+      <div class="axis-num">AXIS 04</div>
+      <h4>刺激の強度</h4>
+      <div class="vs">
+        <span>倒錯的</span>
+        <span style="color: var(--text-muted); font-size: 0.7rem;">vs</span>
+        <span>ソフト</span>
+      </div>
+      <p>痛みなど倒錯的行為の有無・強度の好み</p>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top: 1.2rem;">
+    <h3>プロフィール自動変換機能</h3>
+    <p>
+      診断結果をそのままLunaのプロフィール文に変換できるボタンを設置。
+      「何を書けばいいかわからない」という登録時の摩擦を解消し、
+      プロフィール充実度の向上 → マッチング率の向上という直接的な効果を狙う。
+      自己理解の深化とプロフィール改善の両立を一つの機能で実現した。
+    </p>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="reveal">
+    <div class="section-label">Research</div>
+    <h2>フィールドリサーチ</h2>
+  </div>
+
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <h4>課題発見：退会データの分析</h4>
+      <p>退会者の約50%が「マッチングしない」という理由。退会者のプロフィールを分析し、
+      記述の薄さとマッチング率の相関を特定。自己理解・自己表現の支援が必要という仮説を立てた。</p>
+    </div>
+    <div class="tl-item">
+      <h4>社内ヒアリング：SM知識の習得</h4>
+      <p>自身がSM分野に詳しくなかったため、SM領域に精通した社員への聞き込みを実施。
+      診断軸の妥当性・設問の正確さについてフィードバックを繰り返し受けた。</p>
+    </div>
+    <div class="tl-item">
+      <h4>フィールド調査：SMバーでのリサーチ</h4>
+      <p>実際のユーザー（SM実践者）の声を得るため、SMバーなどのリアルイベントへ足を運び
+      情報収集とフィードバック収集を実施。「詳しい人から見ても当たっている」という評価を獲得。</p>
+    </div>
+    <div class="tl-item">
+      <h4>先行事例のベンチマーク</h4>
+      <p>16Personalities・LoveType 16などの成功事例を分析し、
+      Z世代が「4文字コードで自分を定義する」リテラシーを既に持っていることを確認。
+      MBTI型フォーマットをSM診断に応用する方針を確定した。</p>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section id="strategy">
+  <div class="reveal">
+    <div class="section-label">Marketing Strategy</div>
+    <h2>SNS拡散戦略</h2>
+  </div>
+
+  <div class="strategy-grid reveal">
+    <div class="strategy-card">
+      <div class="icon">📱</div>
+      <h4>インスタグラム：コメント自動DM</h4>
+      <p>ManyChatなどの自動化ツールを活用。「診断」などのキーワードをコメントすると診断URLがDMで届く仕組み。コメント数増加→アルゴリズム優遇→さらなる拡散という好循環を設計。</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">🔄</div>
+      <h4>シェア・保存を最重視した設計</h4>
+      <p>2025年のInstagramアルゴリズムは「いいね」よりシェア・保存を優先。診断結果画面を「保存したくなるデザイン」として設計し、シェア率15%以上を目標に設定。</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">📣</div>
+      <h4>SM界隈への直接告知</h4>
+      <p>Xの生き残りアカウントやインスタ・Utataへの投稿でSM界隈に周知。ショート動画のラストへの紹介画像挿入も計画中。</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">💜</div>
+      <h4>Lunaへの導線設計</h4>
+      <p>「あなたのタイプと最も相性が良いのは〇〇タイプ。Lunaには現在〇〇人登録」という相性提案 → 登録への誘導。結果画面のメアド入力でデータ保存させる設計も組み込み。</p>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top: 1.5rem;">
+    <h3>透明メンション戦略</h3>
+    <p>
+      診断結果のストーリーズシェア時に、背景と同色の透明メンションで公式アカウントをタグ付け。
+      外部ユーザーからは見えないが運営側には通知が届く設計により、
+      全シェアのデータ取得とフォロワー外への二次拡散を同時に実現する。
+    </p>
+  </div>
+</section>
+
+<!-- TECH -->
+<section id="tech">
+  <div class="reveal">
+    <div class="section-label">Development</div>
+    <h2>開発について</h2>
+  </div>
+
+  <div class="card reveal">
+    <h3>AI活用によるソロ開発</h3>
+    <p>
+      Claude Code などのAIツールを積極的に活用し、エンジニアなしで1人で開発を完遂。
+      企画・ターゲット設計・マーケティング戦略・実装・デプロイまでを単独で担当し、
+      スピーディーなゼロイチ立ち上げを実現した。
+      非エンジニアのマーケターとして「AIを使いこなして自ら動くこと」を体現したプロジェクト。
+    </p>
+  </div>
+
+  <div class="tech-list reveal" style="margin-top: 1rem;">
+    <span class="tech-chip">Next.js 14</span>
+    <span class="tech-chip">TypeScript</span>
+    <span class="tech-chip">Tailwind CSS</span>
+    <span class="tech-chip">Redis Cloud (ioredis)</span>
+    <span class="tech-chip">Vercel</span>
+    <span class="tech-chip">Claude Code</span>
+  </div>
+
+  <div class="two-col reveal" style="margin-top: 1.2rem;">
+    <div class="card">
+      <h3>収集しているデータ</h3>
+      <ul>
+        <li>診断結果の分布（タイプ別）</li>
+        <li>シェア数・フィードバック（★評価＋コメント）</li>
+        <li>ユーザー属性・行動データ</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>今後の展開</h3>
+      <ul>
+        <li>Lunaへの登録導線の本格実装</li>
+        <li>プロフィール自動生成AI機能</li>
+        <li>マッチング率15%向上の効果検証</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom: 0.5rem;">SM診断ツール — Long-term Internship Project</p>
+  <p><a href="https://smshindan.vercel.app" target="_blank">smshindan.vercel.app</a></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
