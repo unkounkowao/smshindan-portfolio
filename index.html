@@ -8,15 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --surface2: #1a1a26;
-      --accent: #9b5de5;
-      --accent2: #f72585;
-      --accent3: #4cc9f0;
-      --text: #e8e8f0;
-      --text-muted: #8888aa;
-      --border: #2a2a3a;
+      --bg: #f8f8fc;
+      --surface: #ffffff;
+      --surface2: #f0f0f8;
+      --accent: #7c3aed;
+      --accent2: #e11d74;
+      --accent3: #0ea5e9;
+      --text: #1a1a2e;
+      --text-muted: #5a5a7a;
+      --border: #e0e0ee;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,7 +33,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 2rem;
-      background: rgba(10,10,15,0.85);
+      background: rgba(248,248,252,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
@@ -315,6 +315,9 @@
       font-size: 0.82rem;
     }
     footer a { color: var(--accent); text-decoration: none; }
+
+    /* ─── STRONG ─── */
+    strong { color: var(--text); }
 
     /* ─── SCROLL REVEAL ─── */
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -673,6 +676,7 @@
 <footer>
   <p style="margin-bottom: 0.5rem;">SM診断ツール — Long-term Internship Project</p>
   <p><a href="https://smshindan.vercel.app" target="_blank">smshindan.vercel.app</a></p>
+  <p style="margin-top: 1rem; font-size: 0.75rem; color: #666688;">※ 本ポートフォリオはインターン先企業の許可を得た上で公開しています。</p>
 </footer>
 
 <script>
