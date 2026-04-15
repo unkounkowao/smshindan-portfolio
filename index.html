@@ -55,8 +55,8 @@
       content: '';
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(155,93,229,0.15) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 70% 60%, rgba(247,37,133,0.1) 0%, transparent 70%);
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(124,58,237,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 70% 60%, rgba(225,29,116,0.06) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-tag {
@@ -83,7 +83,7 @@
     .hero-sub {
       font-size: 1.05rem;
       color: var(--text-muted);
-      max-width: 560px;
+      max-width: 720px;
       margin-bottom: 2.5rem;
     }
     .hero-badges {
@@ -101,7 +101,7 @@
     .badge.primary {
       border-color: var(--accent);
       color: var(--accent);
-      background: rgba(155,93,229,0.08);
+      background: rgba(124,58,237,0.06);
     }
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -207,8 +207,8 @@
       font-weight: 600;
       letter-spacing: 0.08em;
     }
-    .persona-tag.main { background: rgba(155,93,229,0.15); color: var(--accent); }
-    .persona-tag.sub { background: rgba(76,201,240,0.12); color: var(--accent3); }
+    .persona-tag.main { background: rgba(124,58,237,0.1); color: var(--accent); }
+    .persona-tag.sub { background: rgba(14,165,233,0.1); color: var(--accent3); }
     .persona h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
     .persona .age { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem; }
     .persona ul { list-style: none; padding: 0; }
@@ -286,11 +286,11 @@
     /* ─── QUOTE ─── */
     blockquote {
       border-left: 3px solid var(--accent);
-      padding: 1rem 1.5rem;
+      padding: 0.6rem 1.2rem;
       background: var(--surface);
       border-radius: 0 8px 8px 0;
-      margin: 1.5rem 0;
-      font-size: 0.95rem;
+      margin: 0.5rem 0;
+      font-size: 0.88rem;
       color: var(--text-muted);
       font-style: italic;
     }
@@ -306,6 +306,35 @@
       background: var(--surface);
     }
 
+    /* ─── STATUS BANNER ─── */
+    .status-banner {
+      background: rgba(124,58,237,0.06);
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .status-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(124,58,237,0.2); }
+      50% { box-shadow: 0 0 0 6px rgba(124,58,237,0.08); }
+    }
+    .status-banner p { font-size: 0.92rem; color: var(--text-muted); margin: 0; }
+    .status-banner strong { color: var(--accent); }
+
+    /* ─── STRONG ─── */
+    strong { color: var(--text); }
+
     /* ─── FOOTER ─── */
     footer {
       text-align: center;
@@ -315,9 +344,6 @@
       font-size: 0.82rem;
     }
     footer a { color: var(--accent); text-decoration: none; }
-
-    /* ─── STRONG ─── */
-    strong { color: var(--text); }
 
     /* ─── SCROLL REVEAL ─── */
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -331,11 +357,13 @@
   <div class="logo">PORTFOLIO</div>
   <ul>
     <li><a href="#overview">概要</a></li>
-    <li><a href="#background">背景</a></li>
     <li><a href="#persona">ターゲット</a></li>
+    <li><a href="#background">戦略</a></li>
     <li><a href="#product">プロダクト</a></li>
-    <li><a href="#strategy">拡散戦略</a></li>
     <li><a href="#tech">開発</a></li>
+    <li><a href="#strategy">拡散戦略</a></li>
+    <li><a href="#feedback">フィードバック</a></li>
+    <li><a href="#next">今後の展開</a></li>
   </ul>
 </nav>
 
@@ -344,8 +372,7 @@
   <div class="hero-tag">LONG-TERM INTERNSHIP PROJECT</div>
   <h1>SM診断ツール<br /><span>企画・開発・マーケティング</span></h1>
   <p class="hero-sub">
-    マッチングアプリ「Luna」の新規ユーザー獲得と既存ユーザーのマッチング率向上を目的とした、
-    診断コンテンツのゼロイチ企画・開発プロジェクト
+    日本最大級SMマッチングサイト「Luna」の新規ユーザー獲得と既存ユーザーのマッチング率向上を目的とした、診断コンテンツの企画・開発プロジェクト
   </p>
   <div class="hero-badges">
     <span class="badge primary">企画立案</span>
@@ -356,7 +383,6 @@
   </div>
   <div class="hero-cta">
     <a href="https://smshindan.vercel.app" target="_blank" class="btn">実際のサービスを見る →</a>
-    <a href="#overview" class="btn btn-outline">詳細を読む</a>
   </div>
 </div>
 
@@ -366,39 +392,95 @@
     <div class="section-label">Overview</div>
     <h2>プロジェクト概要</h2>
   </div>
-  <div class="overview-grid reveal">
-    <div class="stat-card">
-      <div class="num">+15%</div>
-      <div class="label">マッチング率向上の目標値</div>
-    </div>
-    <div class="stat-card">
-      <div class="num">4軸</div>
-      <div class="label">診断の軸数（MBTI型設計）</div>
-    </div>
-    <div class="stat-card">
-      <div class="num">16</div>
-      <div class="label">診断タイプ数</div>
-    </div>
-    <div class="stat-card">
-      <div class="num">1人</div>
-      <div class="label">企画〜開発まで単独で担当</div>
-    </div>
+
+  <div class="card reveal">
+    <h3>1. プロジェクト名</h3>
+    <p>SM診断ツール ― 4軸12タイプの性格診断コンテンツの企画・開発</p>
   </div>
 
   <div class="card reveal">
-    <h3>プロジェクトの位置づけ</h3>
+    <h3>2. 背景と課題 <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">Background &amp; Problem</span></h3>
     <p>
-      長期インターン中に自ら企画・提案し、承認を得てゼロから立ち上げた新規企画。
-      「表の目的（新規ユーザー獲得・SNS拡散）」と「裏の目的（退会者抑制・マッチング率向上）」
-      という二重の事業課題を一つのコンテンツで解決するよう設計した。
+      退会者の約50%が「マッチングしない・合う相手がいない」を理由に離脱。
+      退会者のプロフィールを分析すると記述が薄く、一方マッチング成功者は自分が何を好きかが明確に言語化されていた。
+      自己理解・自己表現の支援が売上改善への近道であるという仮説を立てた。
+      また、「合う相手がいない」という離脱の背景には女性ユーザーの少なさという構造的な課題もある。
+    </p>
+  </div>
+
+  <div class="card reveal">
+    <h3>3. 目的・KPI <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">Objective &amp; Metrics</span></h3>
+    <p>
+      <strong>新規ユーザー獲得：</strong>診断コンテンツのSNS拡散による認知拡大・流入増加<br />
+      <strong>マッチング率向上：</strong>既存ユーザーの自己理解促進・プロフィール充実化により+15%を目標
+    </p>
+  </div>
+
+  <div class="card reveal">
+    <h3>4. 施策の概要 <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">Solution</span></h3>
+    <p>
+      MBTIに着想を得た4軸・12タイプのSM診断ツールをゼロから企画・開発。
+      SNS拡散設計・Lunaへの導線設計まで一貫して担当した。
+    </p>
+  </div>
+
+  <div class="card reveal">
+    <h3>5. 担当範囲・期間 <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted);">Role &amp; Period</span></h3>
+    <p>
+      <strong>期間：</strong>2025年2月〜現在（長期インターン）<br />
+      <strong>担当：</strong>企画立案・ターゲット設計・フィールドリサーチ・マーケティング戦略・開発・デプロイまで単独で担当
     </p>
   </div>
 </section>
 
-<!-- BACKGROUND -->
+<!-- PERSONA -->
+<section id="persona">
+  <div class="reveal">
+    <div class="section-label">Target Persona</div>
+    <h2>ターゲット設定</h2>
+  </div>
+
+  <div class="two-col reveal">
+    <div class="persona">
+      <div class="persona-tag main">MAIN TARGET A（集客層）</div>
+      <h3>20歳女子大学生</h3>
+      <div class="age">ボリュームゾーン：18〜24歳</div>
+      <ul>
+        <li>SMに興味はあるが未経験・知識が浅い層</li>
+        <li>性行為経験は数回程度、「良さがわかっていない」状態</li>
+        <li>MBTI・心理テスト・占い・相性診断が大好き</li>
+        <li>「普通すぎるのは嫌」「自分だけの特別な何か」を求めている</li>
+        <li>自分を分類して安心したい気持ちがある</li>
+      </ul>
+    </div>
+    <div class="persona">
+      <div class="persona-tag main">MAIN TARGET B（拡散層）</div>
+      <h3>「Luna」初心者ユーザーの若年層男性</h3>
+      <div class="age">ボリュームゾーン：18〜24歳<br />性的な投稿・リポストをする、いわゆる「裏垢」層</div>
+      <ul>
+        <li>マッチングアプリ初心者で自己理解・自己表現が浅い</li>
+        <li>SM分類は「SかMか」程度しか知らず、詳しい分類は未知</li>
+        <li>「こんな詳しい分類があるのか」という発見・自己表現が拡散動機になる</li>
+        <li>裏垢でのシェア・リポストが二次拡散のキーになる層</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card reveal" style="margin-top: 1.2rem;">
+    <h3>マーケットプレイス全体の循環設計</h3>
+    <ul>
+      <li>女性の流入増加 → 男性ユーザーの「合う相手がいない」という離脱動機を解消</li>
+      <li>男性の自己理解促進 → プロフィール充実 → 女性のマッチング満足度向上</li>
+      <li>双方向の課題をひとつのコンテンツで解決し、プラットフォーム全体の循環を生む</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- BACKGROUND（戦略・仮説） -->
 <section id="background">
   <div class="reveal">
-    <div class="section-label">Background</div>
+    <div class="section-label">Strategy &amp; Hypothesis</div>
     <h2>なぜ診断ツールなのか</h2>
   </div>
 
@@ -440,49 +522,6 @@
   </div>
 </section>
 
-<!-- PERSONA -->
-<section id="persona">
-  <div class="reveal">
-    <div class="section-label">Target Persona</div>
-    <h2>ターゲット設定</h2>
-  </div>
-
-  <div class="two-col reveal">
-    <div class="persona">
-      <div class="persona-tag main">MAIN TARGET</div>
-      <h3>20歳女子大学生</h3>
-      <div class="age">ボリュームゾーン：18〜24歳</div>
-      <ul>
-        <li>SMに興味はあるが未経験・知識が浅い層</li>
-        <li>性行為経験は数回程度、「良さがわかっていない」状態</li>
-        <li>MBTI・心理テスト・占い・相性診断が大好き</li>
-        <li>「普通すぎるのは嫌」「自分だけの特別な何か」を求めている</li>
-        <li>自分を分類して安心したい気持ちがある</li>
-      </ul>
-    </div>
-    <div class="persona">
-      <div class="persona-tag sub">SUB TARGET（拡散層）</div>
-      <h3>同世代の大学生男性</h3>
-      <div class="age">ボリュームゾーン：20〜28歳（推定25〜35%）</div>
-      <ul>
-        <li>エロコンテンツには精通しているがSM分類は「SかMか」程度しか知らない</li>
-        <li>「こんな詳しい分類があるのか」という発見が拡散動機になる</li>
-        <li>二次拡散・認知拡大のキーとなる層</li>
-        <li>情報源：X・note・インスタ・検索</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="card reveal" style="margin-top: 1.2rem;">
-    <h3>ユーザーの最大の痛点（解決したいこと）</h3>
-    <ul>
-      <li>「自分はどんなタイプなのか」という自己分類の欲求を満たす → <strong>特別感と分類の安心感</strong></li>
-      <li>SMに関する知識を、具体的な行為を想像させずにふんわり与える → <strong>ブランドイメージを壊さない設計</strong></li>
-      <li>「なんとなく興味ある」からLunaへの自然な導線を引く</li>
-    </ul>
-  </div>
-</section>
-
 <!-- PRODUCT -->
 <section id="product">
   <div class="reveal">
@@ -496,7 +535,7 @@
       MBTIの成功により、Z世代には「複数軸で自分を定義する」というリテラシーが既に備わっている。
       自己紹介レベルのSMタイプ分類として4軸がちょうどよく、
       かつ現在流行しているMBTI形式が新規ユーザー獲得のマーケティング戦略にも適していると判断。
-      16タイプという豊富な種類がシェア意欲も高める。
+      12タイプという豊富な種類がシェア意欲も高める。
     </p>
   </div>
 
@@ -544,86 +583,14 @@
   </div>
 
   <div class="card reveal" style="margin-top: 1.2rem;">
-    <h3>プロフィール自動変換機能</h3>
+    <h3>追加要素 ― 「Tags」</h3>
     <p>
-      診断結果をそのままLunaのプロフィール文に変換できるボタンを設置。
-      「何を書けばいいかわからない」という登録時の摩擦を解消し、
-      プロフィール充実度の向上 → マッチング率の向上という直接的な効果を狙う。
-      自己理解の深化とプロフィール改善の両立を一つの機能で実現した。
+      12タイプでは捉えきれない個々人のこだわりや特性を補完するために、「Tags」を設計。
+      タイプという大枠に加えて具体的な要素について明記することで、
+      より精度の高い自己表現とマッチングの精度向上を実現する。
     </p>
   </div>
-</section>
 
-<!-- RESEARCH -->
-<section id="research">
-  <div class="reveal">
-    <div class="section-label">Research</div>
-    <h2>フィールドリサーチ</h2>
-  </div>
-
-  <div class="timeline reveal">
-    <div class="tl-item">
-      <h4>課題発見：退会データの分析</h4>
-      <p>退会者の約50%が「マッチングしない」という理由。退会者のプロフィールを分析し、
-      記述の薄さとマッチング率の相関を特定。自己理解・自己表現の支援が必要という仮説を立てた。</p>
-    </div>
-    <div class="tl-item">
-      <h4>社内ヒアリング：SM知識の習得</h4>
-      <p>自身がSM分野に詳しくなかったため、SM領域に精通した社員への聞き込みを実施。
-      診断軸の妥当性・設問の正確さについてフィードバックを繰り返し受けた。</p>
-    </div>
-    <div class="tl-item">
-      <h4>フィールド調査：SMバーでのリサーチ</h4>
-      <p>実際のユーザー（SM実践者）の声を得るため、SMバーなどのリアルイベントへ足を運び
-      情報収集とフィードバック収集を実施。「詳しい人から見ても当たっている」という評価を獲得。</p>
-    </div>
-    <div class="tl-item">
-      <h4>先行事例のベンチマーク</h4>
-      <p>16Personalities・LoveType 16などの成功事例を分析し、
-      Z世代が「4文字コードで自分を定義する」リテラシーを既に持っていることを確認。
-      MBTI型フォーマットをSM診断に応用する方針を確定した。</p>
-    </div>
-  </div>
-</section>
-
-<!-- STRATEGY -->
-<section id="strategy">
-  <div class="reveal">
-    <div class="section-label">Marketing Strategy</div>
-    <h2>SNS拡散戦略</h2>
-  </div>
-
-  <div class="strategy-grid reveal">
-    <div class="strategy-card">
-      <div class="icon">📱</div>
-      <h4>インスタグラム：コメント自動DM</h4>
-      <p>ManyChatなどの自動化ツールを活用。「診断」などのキーワードをコメントすると診断URLがDMで届く仕組み。コメント数増加→アルゴリズム優遇→さらなる拡散という好循環を設計。</p>
-    </div>
-    <div class="strategy-card">
-      <div class="icon">🔄</div>
-      <h4>シェア・保存を最重視した設計</h4>
-      <p>2025年のInstagramアルゴリズムは「いいね」よりシェア・保存を優先。診断結果画面を「保存したくなるデザイン」として設計し、シェア率15%以上を目標に設定。</p>
-    </div>
-    <div class="strategy-card">
-      <div class="icon">📣</div>
-      <h4>SM界隈への直接告知</h4>
-      <p>Xの生き残りアカウントやインスタ・Utataへの投稿でSM界隈に周知。ショート動画のラストへの紹介画像挿入も計画中。</p>
-    </div>
-    <div class="strategy-card">
-      <div class="icon">💜</div>
-      <h4>Lunaへの導線設計</h4>
-      <p>「あなたのタイプと最も相性が良いのは〇〇タイプ。Lunaには現在〇〇人登録」という相性提案 → 登録への誘導。結果画面のメアド入力でデータ保存させる設計も組み込み。</p>
-    </div>
-  </div>
-
-  <div class="card reveal" style="margin-top: 1.5rem;">
-    <h3>透明メンション戦略</h3>
-    <p>
-      診断結果のストーリーズシェア時に、背景と同色の透明メンションで公式アカウントをタグ付け。
-      外部ユーザーからは見えないが運営側には通知が届く設計により、
-      全シェアのデータ取得とフォロワー外への二次拡散を同時に実現する。
-    </p>
-  </div>
 </section>
 
 <!-- TECH -->
@@ -636,10 +603,9 @@
   <div class="card reveal">
     <h3>AI活用によるソロ開発</h3>
     <p>
-      Claude Code などのAIツールを積極的に活用し、エンジニアなしで1人で開発を完遂。
+      エンジニアリソースを使わず、Claude Code などのAIツールを戦略的に活用して開発。
       企画・ターゲット設計・マーケティング戦略・実装・デプロイまでを単独で担当し、
-      スピーディーなゼロイチ立ち上げを実現した。
-      非エンジニアのマーケターとして「AIを使いこなして自ら動くこと」を体現したプロジェクト。
+      リソース制約の中でスピーディーなゼロイチ立ち上げを実現した。
     </p>
   </div>
 
@@ -650,24 +616,119 @@
     <span class="tech-chip">Redis Cloud (ioredis)</span>
     <span class="tech-chip">Vercel</span>
     <span class="tech-chip">Claude Code</span>
+    <span class="tech-chip">Google Analytics</span>
   </div>
 
-  <div class="two-col reveal" style="margin-top: 1.2rem;">
-    <div class="card">
-      <h3>収集しているデータ</h3>
-      <ul>
-        <li>診断結果の分布（タイプ別）</li>
-        <li>シェア数・フィードバック（★評価＋コメント）</li>
-        <li>ユーザー属性・行動データ</li>
-      </ul>
+  <div class="card reveal" style="margin-top: 1.2rem;">
+    <h3>収集しているデータ</h3>
+    <ul>
+      <li>診断結果の分布</li>
+      <li>各設問の回答分布</li>
+      <li>シェア数・フィードバック（★評価＋コメント）</li>
+      <li>ユーザー属性・行動データ</li>
+    </ul>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section id="strategy">
+  <div class="reveal">
+    <div class="section-label">Marketing Strategy</div>
+    <h2>拡散戦略</h2>
+  </div>
+
+  <div class="reveal" style="margin-bottom: 2rem;">
+    <div class="two-col">
+      <div class="strategy-card">
+        <div class="icon">📣</div>
+        <h4>公式SNSでの周知</h4>
+        <p>LunaのX・インスタ公式アカウントから既存ユーザーへ告知。アプリ内ユーザーへのリーチを最初のステップとして設計。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="icon">🎬</div>
+        <h4>プロモーション動画への挿入</h4>
+        <p>Lunaの既存プロモーション動画のラストに診断ツールの紹介を追加。視聴者を自然な流れで診断へ誘導する。</p>
+      </div>
     </div>
-    <div class="card">
-      <h3>今後の展開</h3>
-      <ul>
-        <li>Lunaへの登録導線の本格実装</li>
-        <li>プロフィール自動生成AI機能</li>
-        <li>マッチング率15%向上の効果検証</li>
-      </ul>
+  </div>
+
+</section>
+
+<!-- FEEDBACK -->
+<section id="feedback">
+  <div class="reveal">
+    <div class="section-label">Feedback</div>
+    <h2>テスト段階のフィードバック</h2>
+  </div>
+
+  <div class="status-banner reveal">
+    <div class="status-dot"></div>
+    <p><strong>公開予定：2025年4月21日</strong> ── 現在テスト運用中。ユーザーの反応・フィードバックをもとに最終調整を進めています。</p>
+  </div>
+
+  <div class="card reveal" style="margin-top: 2rem;">
+    <div class="persona-tag main" style="margin-bottom: 1rem;">ターゲット層と同年代の方（SM初心者・未経験層）</div>
+    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.2rem;">
+      「わかりやすさ」と「没入感」が高く評価された。SMに馴染みのない層でも設問・文章ともにストレスなく読み進められ、
+      診断後の充実感まで設計できていることが確認できた。
+    </p>
+    <blockquote>「分析とかメッセージとかも楽しく読めた。想像より長くて、診断後も充実感すごかった」</blockquote>
+    <blockquote>「設問内容が分かりやすく、直感的に選択できて楽しかった。」</blockquote>
+    <blockquote style="border-color: var(--accent2);">「4軸スコアの説明を読めば"確かに自分こっち側だな〜"と思ったけど、診断結果の説明文にピンと来ない部分があった」</blockquote>
+  </div>
+
+  <div class="card reveal">
+    <div class="persona-tag sub" style="margin-bottom: 1rem;">SMに詳しい方（有識者層）</div>
+    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.2rem;">
+      既存の診断にはなかった「4軸の新しさ」が刺さった。精神/肉体・日常/非日常という軸は有識者にとって新鮮な切り口となり、
+      自己を見直すきっかけとしても機能していた。精度の高さも複数の声から確認できた。
+    </p>
+    <blockquote>「今までの診断系はサディスト/マゾヒストやドミナント/サブミッシブの軸が多かったのに対して、精神重視/肉体重視や日常的かプレイ時だけかという新たな軸があることで、今までとは違った区分となっていて興味深かった」</blockquote>
+    <blockquote>「1回目は直感で、2回目は少し考えながらやっても結果は同じだったので、精度はいいのでは」</blockquote>
+    <blockquote>「診断結果が想定と違っていたから、自分の中で変化があったのかなと見直すきっかけになって良かった」</blockquote>
+  </div>
+
+  <div class="card reveal" style="border-color: var(--accent); background: rgba(124,58,237,0.03);">
+    <h3>Next Action ― テキストのブラッシュアップ</h3>
+    <p>
+      初心者層から「診断結果の説明文にピンと来ない部分があった」という声が挙がった。
+      4軸スコアへの納得感は高い一方、結果ページの文章表現に改善余地があることが判明。
+      より直感的に「自分のことだ」と感じてもらえるよう、結果テキストの言葉選びと構成をブラッシュアップする。
+    </p>
+  </div>
+</section>
+
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="reveal">
+    <div class="section-label">Next Steps</div>
+    <h2>今後の展開</h2>
+  </div>
+
+  <div class="card reveal" style="margin-bottom: 1rem;">
+    <h3>Luna連携機能の実装</h3>
+    <p>LunaアプリからSM診断ツールへ、診断ツールからLunaへ、双方向に行き来できる導線を実装。診断体験をLuna利用の入口にする。</p>
+  </div>
+  <div class="two-col reveal">
+    <div class="strategy-card">
+      <div class="icon">💜</div>
+      <h4>相性提案 → 登録誘導</h4>
+      <p>「あなたと最も相性が良いのは〇〇タイプ。今Lunaにはこのタイプが〇〇人登録中」と表示し、「相性の良い相手を探す」「Lunaに登録！」の導線を設置。</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">📧</div>
+      <h4>メアド入力 × メルマガ登録</h4>
+      <p>結果画面のメアド入力フォームで診断結果を保存。同時にメルマガ登録を行い、継続的な接点を確保する。</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">✍️</div>
+      <h4>プロフィール自動生成（AI）</h4>
+      <p>診断結果をワンクリックでLunaの自己紹介文に変換できるボタンを設置。登録時の「何を書けばいいかわからない」という摩擦をAIで解消する。</p>
+    </div>
+    <div class="strategy-card">
+      <div class="icon">📊</div>
+      <h4>効果検証</h4>
+      <p>マッチング率15%向上の達成度をデータで検証。設問ごとの回答分布やシェア率など収集データをもとに施策を継続改善する。</p>
     </div>
   </div>
 </section>
@@ -676,7 +737,7 @@
 <footer>
   <p style="margin-bottom: 0.5rem;">SM診断ツール — Long-term Internship Project</p>
   <p><a href="https://smshindan.vercel.app" target="_blank">smshindan.vercel.app</a></p>
-  <p style="margin-top: 1rem; font-size: 0.75rem; color: #666688;">※ 本ポートフォリオはインターン先企業の許可を得た上で公開しています。</p>
+  <p style="margin-top: 1rem; font-size: 0.75rem; color: #9999bb;">※ 本ポートフォリオはインターン先企業の許可を得た上で公開しています。</p>
 </footer>
 
 <script>
